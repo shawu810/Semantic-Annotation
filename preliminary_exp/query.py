@@ -1,8 +1,6 @@
 import MySQLdb
 import os
 import cPickle as pickle
-from credential import *
-
 
 class Point:
     def __init__(self, lat, lon, timestamp, content):
@@ -62,7 +60,7 @@ def query_location_entropy(user_id, cursor):
 
 
 class DB:
-    def __init__(self, usermap=dict(), gendermap = {'male':[],'female':[]}, racemap = {'black':[],'white':[],'asian':[],'hispanic':[]}):
+    def __init__(self, usermap=dict(), gendermap = {'male':[],'female':[]}, racemap = {'black':[],'white':[],'asian':[]}):
         self.usermap   = usermap
         self.gendermap = gendermap        
         self.racemap   = racemap
@@ -71,8 +69,8 @@ class DB:
 def parsing_label_file(filename):
     infor = DB()
     for oneline in open(filename):
-        line_set = oneline.rstrip('\n').split(';')
-        if 'user' in oneline:
+        line_set = oneline.rstrip('\n').split(',')
+        if 'id' in oneline:
             continue
         userid   = line_set[0].replace(" ","").replace("\t","")
         race     = line_set[1]
